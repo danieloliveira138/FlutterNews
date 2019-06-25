@@ -15,6 +15,7 @@ class _NoticeListPageState extends State<NoticeList>{
 
   List _news = new List();
   var repository = new NewsApi();
+  var _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +25,38 @@ class _NoticeListPageState extends State<NoticeList>{
       body: new Container(
         child: _getListViewWidget(),
       ),
+      bottomNavigationBar: _getBottomNavigationBar(),
     );
   }
 
   @override
   void initState() {
     loadNotices();
+  }
+
+  Widget _getBottomNavigationBar(){
+
+    return new BottomNavigationBar(
+      onTap: onTabTapped,
+      currentIndex: _currentIndex,
+      items: [
+        new BottomNavigationBarItem(
+          icon: const Icon(Icons.home),
+          title: Text('Recentes'),
+          backgroundColor: Colors.blue
+        ),
+        new BottomNavigationBarItem(
+          icon: const Icon(Icons.list),
+          title: Text('Notícias'),
+          backgroundColor: Colors.blue
+        ),
+        new BottomNavigationBarItem(
+          icon: const Icon(Icons.info),
+          title: Text('Sobre'),
+          backgroundColor: Colors.blue
+        )
+      ],
+    );
   }
 
   Widget _getListViewWidget(){
@@ -60,4 +87,10 @@ class _NoticeListPageState extends State<NoticeList>{
     });
   }
 
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 }
