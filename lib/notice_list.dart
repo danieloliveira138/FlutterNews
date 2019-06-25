@@ -71,9 +71,9 @@ class _NoticeListPageState extends State<NoticeList>{
         child: new Container(
           margin: new EdgeInsets.only(left: 10.0),
           child: new Material(
-            elevation: 2.0,
-            borderOnForeground: true,
-            borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+            elevation: 18.0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+            clipBehavior: Clip.antiAlias,
             child: new Container(
               padding: new EdgeInsets.only(left: 12.0, top: 7.0, bottom: 7.0, right: 12.0),
               color: _category_selected == index ? Colors.blue[800] : Colors.blue[500],
