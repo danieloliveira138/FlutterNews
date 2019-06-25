@@ -13,6 +13,9 @@ class NoticeList extends StatefulWidget{
 
 class _NoticeListPageState extends State<NoticeList>{
 
+  List _categorys = new List();
+  var _category_selected = 0;
+
   List _news = new List();
   var repository = new NewsApi();
   var _currentIndex = 0;
@@ -23,7 +26,14 @@ class _NoticeListPageState extends State<NoticeList>{
     return new Scaffold(
       appBar: new AppBar(),
       body: new Container(
-        child: _getListViewWidget(),
+        child: new Column(
+          children: <Widget>[
+            _getListCategory(),
+            new Expanded(
+              child: _getListViewWidget(),
+            )
+          ],
+        )
       ),
       bottomNavigationBar: _getBottomNavigationBar(),
     );
@@ -31,7 +41,67 @@ class _NoticeListPageState extends State<NoticeList>{
 
   @override
   void initState() {
+    setCategorys();
     loadNotices();
+  }
+
+  Widget _getListCategory(){
+
+    ListView listView = new ListView.builder(
+      itemCount: _categorys.length,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return _buildCategoryItem(index);
+      }
+    );
+
+    return new Container(
+      height: 55.0,
+      child: listView,
+    );
+  }
+
+  Widget _buildCategoryItem(int index) {
+
+    return new GestureDetector(
+      onTap: (){
+        onTabCategory(index);
+      },
+      child: new Center(
+        child: new Container(
+          margin: new EdgeInsets.only(left: 10.0),
+          child: new Material(
+            elevation: 2.0,
+            borderOnForeground: true,
+            borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+            child: new Container(
+              padding: new EdgeInsets.only(left: 12.0, top: 7.0, bottom: 7.0, right: 12.0),
+              color: _category_selected == index ? Colors.blue[800] : Colors.blue[500],
+              child: new Text(
+                _categorys[index],
+                style: new TextStyle(color: Colors.white),
+              )
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void onTabCategory(int index){
+    setState(() {
+      _category_selected = index;
+    });
+    //Todo -> Action when user select a category
+  }
+
+  void setCategorys() {
+    _categorys.add("Geral");
+    _categorys.add("Esporte");
+    _categorys.add("Tecnologia");
+    _categorys.add("Entretenimento");
+    _categorys.add("Saúde");
+    _categorys.add("Negócios");
   }
 
   Widget _getBottomNavigationBar(){
@@ -39,11 +109,12 @@ class _NoticeListPageState extends State<NoticeList>{
     return new BottomNavigationBar(
       onTap: onTabTapped,
       currentIndex: _currentIndex,
+      type: BottomNavigationBarType.shifting,
       items: [
         new BottomNavigationBarItem(
           icon: const Icon(Icons.home),
           title: Text('Recentes'),
-          backgroundColor: Colors.blue
+          backgroundColor: Colors.green
         ),
         new BottomNavigationBarItem(
           icon: const Icon(Icons.list),
@@ -53,7 +124,7 @@ class _NoticeListPageState extends State<NoticeList>{
         new BottomNavigationBarItem(
           icon: const Icon(Icons.info),
           title: Text('Sobre'),
-          backgroundColor: Colors.blue
+          backgroundColor: Colors.red
         )
       ],
     );
