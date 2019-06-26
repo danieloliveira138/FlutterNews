@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
+import 'notice_detail.dart';
+
 class Notice extends StatelessWidget {
   var _img;
   var _title;
@@ -19,7 +21,11 @@ class Notice extends StatelessWidget {
       child: new Material(
         borderRadius: new BorderRadius.circular(6.0),
         elevation: 2.0,
-        child: _getListTitle(),
+        child: new InkWell(
+          onTap: showDetail,
+          splashColor: Colors.blue,
+          child: _getListTitle(),
+        ),
       ),
     );
   }
@@ -78,5 +84,13 @@ class Notice extends StatelessWidget {
       margin: new EdgeInsets.only(top: 5.0),
       child: new Text(description, maxLines: 2)
     );
+  }
+
+  showDetail() {
+    Navigator
+        .of(_context)
+        .push(new MaterialPageRoute(builder: (BuildContext context) {
+          return new NoticeDetail(_img, _title, _date, _description);
+    }));
   }
 }
