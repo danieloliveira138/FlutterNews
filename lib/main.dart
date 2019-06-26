@@ -11,9 +11,12 @@ class NewsApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter News',
       theme: new ThemeData(
-        primarySwatch: Colors.green
+        primarySwatch: Colors.purple
       ),
       home: new NoticeList(),
+      routes: <String, WidgetBuilder> {
+
+      }
     );
   }
 }

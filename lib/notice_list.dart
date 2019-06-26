@@ -22,9 +22,18 @@ class _NoticeListPageState extends State<NoticeList>{
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
-      appBar: new AppBar(),
+      appBar: new AppBar(
+        title: new Text(
+          "Flutter News",
+          style: new TextStyle(
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+              fontSize: 30.0,
+              letterSpacing: 2.0,
+              wordSpacing: 10.0),
+        ),
+      ),
       body: new Container(
         child: new Column(
           children: <Widget>[
@@ -46,7 +55,6 @@ class _NoticeListPageState extends State<NoticeList>{
   }
 
   Widget _getListCategory(){
-
     ListView listView = new ListView.builder(
       itemCount: _categorys.length,
       scrollDirection: Axis.horizontal,
@@ -62,7 +70,6 @@ class _NoticeListPageState extends State<NoticeList>{
   }
 
   Widget _buildCategoryItem(int index) {
-
     return new GestureDetector(
       onTap: (){
         onTabCategory(index);
@@ -71,7 +78,7 @@ class _NoticeListPageState extends State<NoticeList>{
         child: new Container(
           margin: new EdgeInsets.only(left: 10.0),
           child: new Material(
-            elevation: 18.0,
+            elevation: 5.0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
             clipBehavior: Clip.antiAlias,
             child: new Container(
@@ -105,7 +112,6 @@ class _NoticeListPageState extends State<NoticeList>{
   }
 
   Widget _getBottomNavigationBar(){
-
     return new BottomNavigationBar(
       onTap: onTabTapped,
       currentIndex: _currentIndex,
@@ -114,7 +120,7 @@ class _NoticeListPageState extends State<NoticeList>{
         new BottomNavigationBarItem(
           icon: const Icon(Icons.home),
           title: Text('Recentes'),
-          backgroundColor: Colors.green
+          backgroundColor: Colors.green,
         ),
         new BottomNavigationBarItem(
           icon: const Icon(Icons.list),
@@ -124,7 +130,8 @@ class _NoticeListPageState extends State<NoticeList>{
         new BottomNavigationBarItem(
           icon: const Icon(Icons.info),
           title: Text('Sobre'),
-          backgroundColor: Colors.red
+          backgroundColor: Colors.red,
+          activeIcon: const Icon(Icons.add_to_home_screen)
         )
       ],
     );
@@ -158,10 +165,10 @@ class _NoticeListPageState extends State<NoticeList>{
     });
   }
 
-
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
 }
