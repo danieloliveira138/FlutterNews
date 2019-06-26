@@ -16,7 +16,7 @@ class NoticeDetail extends StatelessWidget{
         title: new Text(_title)
       ),
       body: new Container(
-        margin: new EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 60.0),
+        margin: new EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 20.0),
         child: new Material(
           elevation: 4.0,
           borderRadius: BorderRadius.circular(6.0),

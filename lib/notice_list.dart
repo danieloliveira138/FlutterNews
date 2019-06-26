@@ -15,13 +15,16 @@ class _NoticeListPageState extends State<NoticeList>{
 
   List _categorys = new List();
   var _category_selected = 0;
+  var _progressBar = false;
 
   List _news = new List();
   var repository = new NewsApi();
   var _currentIndex = 0;
+  var _context = null;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    _context = context;
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -34,18 +37,44 @@ class _NoticeListPageState extends State<NoticeList>{
               wordSpacing: 10.0),
         ),
       ),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            _getListCategory(),
-            new Expanded(
-              child: _getListViewWidget(),
-            )
-          ],
-        )
+      body: new Stack(
+        children: _buildBody(_context)
       ),
       bottomNavigationBar: _getBottomNavigationBar(),
     );
+  }
+
+  List<Widget> _buildBody(BuildContext context){
+    Form form = new Form(
+      child: new Column(
+        children: [
+          _getListCategory(),
+          new Expanded(
+            child: _getListViewWidget(),
+          ),
+        ],
+      ),
+    );
+
+    var llWidget = new List<Widget>();
+    llWidget.add(form);
+
+    if(_progressBar){
+      var modal = new Stack(
+        children: [
+          new Opacity(
+              opacity: 0.3,
+              child: const ModalBarrier(dismissible: false, color: Colors.grey),
+          ),
+          new Center(
+            child: new CircularProgressIndicator(),
+          )
+        ],
+      );
+      llWidget.add(modal);
+    }
+
+    return llWidget;
   }
 
   @override
@@ -150,8 +179,11 @@ class _NoticeListPageState extends State<NoticeList>{
   }
 
   loadNotices() async {
+    setState(() {
+      _progressBar = true;
+    });
     List result = await repository.loadNews();
-
+    _progressBar = false;
     setState(() {
       result.forEach((item) {
         var notice = new Notice(
@@ -162,6 +194,7 @@ class _NoticeListPageState extends State<NoticeList>{
         );
         _news.add(notice);
       });
+      _progressBar = false;
     });
   }
 
