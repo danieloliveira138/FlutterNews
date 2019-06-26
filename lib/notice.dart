@@ -25,13 +25,19 @@ class Notice extends StatelessWidget {
   }
 
   Widget _getListTitle(){
-    //Foi adicionado dentro de Container para adicionar altura fixa.
     return Container(
       height: 95.0,
+      decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0))),
       child: new Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new FadeInImage.assetNetwork(placeholder: '', image: _img, fit: BoxFit.cover, width: 95.0, height: 95.0),
+          new FadeInImage.assetNetwork(
+              placeholder: '',
+              image: _img,
+              fit: BoxFit.cover,
+              width: 95.0,
+              height: 95.0,
+          ),
           _getColumText(_title, _date, _description)
         ],
       ),
