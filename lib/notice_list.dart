@@ -16,6 +16,7 @@ class _NoticeListPageState extends State<NoticeList>{
   List _categorys = new List();
   var _category_selected = 0;
   var _progressBar = false;
+  var scaffold = new Scaffold();
 
   List _news = new List();
   var repository = new NewsApi();
@@ -25,7 +26,7 @@ class _NoticeListPageState extends State<NoticeList>{
   @override
   Widget build(BuildContext context){
     _context = context;
-    return new Scaffold(
+    var scaffold = new Scaffold(
       appBar: new AppBar(
         title: new Text(
           "Flutter News",
@@ -40,7 +41,44 @@ class _NoticeListPageState extends State<NoticeList>{
       body: new Stack(
         children: _buildBody(_context)
       ),
+      drawer: _getDrawer(_context),
       bottomNavigationBar: _getBottomNavigationBar(),
+    );
+    this.scaffold = scaffold;
+    return scaffold;
+  }
+
+  Drawer _getDrawer(context){
+    return new Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('Flutter News'),
+            decoration: BoxDecoration(
+              color: Colors.green
+            ),
+          ),
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text('Item 2'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text('Item 3'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
     );
   }
 

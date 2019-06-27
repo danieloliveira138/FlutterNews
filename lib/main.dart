@@ -16,7 +16,7 @@ class NewsApp extends StatelessWidget {
       home: new NoticeList(),
       routes: <String, WidgetBuilder> {
 
-      }
+      },
     );
   }
 }

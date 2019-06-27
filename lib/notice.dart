@@ -23,7 +23,7 @@ class Notice extends StatelessWidget {
         elevation: 2.0,
         child: new InkWell(
           onTap: showDetail,
-          splashColor: Colors.blue,
+          splashColor: Colors.red,
           child: _getListTitle(),
         ),
       ),
