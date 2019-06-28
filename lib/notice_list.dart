@@ -14,19 +14,20 @@ class NoticeList extends StatefulWidget{
 class _NoticeListPageState extends State<NoticeList>{
 
   List _categorys = new List();
-  var _category_selected = 0;
+  var _category_selected = 99;
   var _progressBar = false;
-  var scaffold = new Scaffold();
+  final _snackbar = SnackBar(content: Text('TEste'),);
+  var _scaffold = new Scaffold();
 
   List _news = new List();
   var repository = new NewsApi();
-  var _currentIndex = 0;
+  var _currentIndex = 99;
   var _context = null;
 
   @override
   Widget build(BuildContext context){
     _context = context;
-    var scaffold = new Scaffold(
+    _scaffold =  new Scaffold(
       appBar: new AppBar(
         title: new Text(
           "Flutter News",
@@ -42,10 +43,21 @@ class _NoticeListPageState extends State<NoticeList>{
         children: _buildBody(_context)
       ),
       drawer: _getDrawer(_context),
-      bottomNavigationBar: _getBottomNavigationBar(),
+//      bottomNavigationBar: _getBottomNavigationBar(),
     );
-    this.scaffold = scaffold;
-    return scaffold;
+    return _scaffold;
+  }
+
+  showSnackBar(message){
+    var snackbar = SnackBar(
+      content: Text(message),
+      action: SnackBarAction(
+          label: 'ok',
+          onPressed: () {
+
+          }),
+    );
+    Scaffold.of(context).showSnackBar(snackbar);
   }
 
   Drawer _getDrawer(context){
@@ -63,18 +75,21 @@ class _NoticeListPageState extends State<NoticeList>{
             title: Text('Item 1'),
             onTap: () {
               Navigator.pop(context);
+              showSnackBar('Item 1 pressed');
             },
           ),
           ListTile(
             title: Text('Item 2'),
             onTap: () {
               Navigator.pop(context);
+              showSnackBar('Item 2 pressed');
             },
           ),
           ListTile(
             title: Text('Item 3'),
             onTap: () {
               Navigator.pop(context);
+              showSnackBar('Item 3 pressed');
             },
           )
         ],
@@ -111,7 +126,6 @@ class _NoticeListPageState extends State<NoticeList>{
       );
       llWidget.add(modal);
     }
-
     return llWidget;
   }
 

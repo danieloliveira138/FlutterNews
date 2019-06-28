@@ -13,7 +13,7 @@ class NewsApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: new NoticeList(),
+      home: new Scaffold(body: new NoticeList()),
       routes: <String, WidgetBuilder> {
 
       },

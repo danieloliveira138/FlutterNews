@@ -6,6 +6,7 @@ class NoticeDetail extends StatelessWidget{
   var _title;
   var _date;
   var _description;
+  BuildContext scaffoldContext;
 
   NoticeDetail(this._img, this._title, this._date, this._description);
 
@@ -15,20 +16,42 @@ class NoticeDetail extends StatelessWidget{
       appBar: new AppBar(
         title: new Text(_title)
       ),
-      body: new Container(
-        margin: new EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 20.0),
-        child: new Material(
-          elevation: 4.0,
-          borderRadius: BorderRadius.circular(6.0),
-          child: new ListView(
-            children: <Widget>[
-              _getImageNetwork(_img),
-              _getBody(_title, _date, _description)
-            ],
+      body: new Builder(builder: (BuildContext context) {
+        scaffoldContext = context;
+        return new Container(
+          margin: new EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 20.0),
+          child: new Material(
+            elevation: 4.0,
+            borderRadius: BorderRadius.circular(6.0),
+            child: new ListView(
+              children: <Widget>[
+                _getImageNetwork(_img),
+                _getBody(_title, _date, _description),
+                new MaterialButton(onPressed: (){
+                  showSnackBar('Teste');
+                },
+                  height: 50.0,
+                  minWidth: 90.0,
+                  color: Colors.green,)
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      })
+
     );
+  }
+
+  showSnackBar(message){
+    var snackbar = SnackBar(
+      content: Text(message),
+      action: SnackBarAction(
+          label: 'ok',
+          onPressed: () {
+
+          }),
+    );
+    Scaffold.of(scaffoldContext).showSnackBar(snackbar);
   }
 
   Widget _getBody(title, date, description) {
