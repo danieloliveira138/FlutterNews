@@ -27,12 +27,16 @@ class NoticeDetail extends StatelessWidget{
               children: <Widget>[
                 _getImageNetwork(_img),
                 _getBody(_title, _date, _description),
-                new MaterialButton(onPressed: (){
+                new MaterialButton(
+                  child: Text('Ok', style: TextStyle(color: Colors.white),),
+                  onPressed: (){
                   showSnackBar('Teste');
                 },
                   height: 50.0,
                   minWidth: 90.0,
-                  color: Colors.green,)
+                  color: Colors.green,
+
+                )
               ],
             ),
           ),
